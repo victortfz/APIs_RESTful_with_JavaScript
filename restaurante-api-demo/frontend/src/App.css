@@ -1,0 +1,129 @@
+/* Estilos Globais */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container Principal */
+.App {
+  width: 90%;
+  max-width: 1200px;
+  margin: 2em auto;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 2em;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Título Principal */
+.App h1 {
+  color: #333;
+  font-size: 2.5em;
+  margin-bottom: 0.3em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtítulo */
+.subtitle {
+  color: #666;
+  font-size: 1.1em;
+  margin-bottom: 2em;
+}
+
+/* Grid de Cardápio */
+.cardapio-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5em;
+  margin-top: 2em;
+}
+
+/* Card de Item do Cardápio */
+.cardapio-item {
+  background: white;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 1.5em;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cardapio-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-color: #667eea;
+}
+
+.cardapio-item h2 {
+  color: #333;
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.cardapio-item .descricao {
+  color: #666;
+  font-size: 0.95em;
+  margin: 0.8em 0;
+  line-height: 1.5;
+  min-height: 3em;
+}
+
+.cardapio-item .preco {
+  color: #667eea;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+/* Estados de Loading e Erro */
+.loading {
+  font-size: 1.5em;
+  color: #667eea;
+  padding: 3em;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.error {
+  background-color: #fee;
+  border: 2px solid #fcc;
+  border-radius: 8px;
+  padding: 2em;
+  color: #c33;
+}
+
+.error p {
+  margin: 0.5em 0;
+  font-size: 1.1em;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .App {
+    width: 95%;
+    padding: 1.5em;
+  }
+
+  .App h1 {
+    font-size: 2em;
+  }
+
+  .cardapio-lista {
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+}
