@@ -13,7 +13,7 @@ function App() {
   // Estado para a comanda (carrinho de pedidos)
   const [comanda, setComanda] = useState([]);
 
- const [numeromesa, setnumeromesa] = useState(1);
+  const [numeromesa, setnumeromesa] = useState(1);
 
   // Estado para controlar atualização do Painel da Cozinha (gatilho)
   const [refreshPedidos, setRefreshPedidos] = useState(0);
@@ -33,7 +33,7 @@ function App() {
           setCardapio(response.data); // Fallback caso a estrutura seja diferente
         }
       } catch (err) {
-        console.error('❌ Front-end: "Erro ao buscar o cardápio"', err);
+        console.error('X Front-end: "Erro ao buscar o cardápio"', err);
         setError(err); // Guarda o erro no estado
       } finally {
         setLoading(false); // Para de carregar (com sucesso ou erro)
@@ -49,6 +49,13 @@ function App() {
       console.log('✅ Item adicionado à comanda:', item.nome);
       // Adiciona o item novo à lista de itens anteriores
       return [...prevComanda, item];
+    });
+  };
+
+  // ✅ NOVA FUNÇÃO: remover item da comanda pelo índice
+  const handleRemoveItemComanda = (indexToRemove) => {
+    setComanda((prevComanda) => {
+      return prevComanda.filter((_, index) => index !== indexToRemove);
     });
   };
 
@@ -82,8 +89,8 @@ function App() {
       setRefreshPedidos(count => count + 1); // Incrementa o gatilho
       
     } catch (err) {
-      console.error('❌ Erro ao enviar pedido:', err);
-      alert('❌ Erro ao enviar pedido para a "Cozinha". Tente novamente.');
+      console.error('X Erro ao enviar pedido:', err);
+      alert('X Erro ao enviar pedido para a "Cozinha". Tente novamente.');
     }
   };
 
@@ -103,7 +110,7 @@ function App() {
       <div className="App">
         <h1>🍽️ Restaurante 🍽️</h1>
         <div className="error">
-          <p>❌ Erro: A "Cozinha" (Back-end) não respondeu.</p>
+          <p>X Erro: A "Cozinha" (Back-end) não respondeu.</p>
           <p>Verifique se o servidor está rodando em http://localhost:4000</p>
         </div>
       </div>
@@ -124,8 +131,9 @@ function App() {
             <p className="preco">R$ {item.preco.toFixed(2)}</p>
             {/* Botão para adicionar item à comanda */}
             <button 
-            onClick={() => handleAddItemComanda(item)} 
-            style={{color: 'white'}}>
+              onClick={() => handleAddItemComanda(item)} 
+              style={{ color: 'white' }}
+            >
               ➕ Adicionar ao Pedido
             </button>
           </div>
@@ -146,6 +154,8 @@ function App() {
               <div key={index} className="comanda-item">
                 <span className="comanda-item-nome">{item.nome}</span>
                 <span className="comanda-item-preco">R$ {item.preco.toFixed(2)}</span>
+                {/* x BOTÃO PARA REMOVER ITEM */}
+                <button onClick={() => handleRemoveItemComanda(index)}> X </button>
               </div>
             ))
           )}
