@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { getCardapio, createComanda } from './services/api'; // Importa nossas funções da API
 import { PainelCozinha } from './components/PainelCozinha'; // Importa o Painel da Cozinha
 import './App.css'; // Vite inclui este CSS básico
@@ -12,7 +12,9 @@ function App() {
   const [error, setError] = useState(null);
   // Estado para a comanda (carrinho de pedidos)
   const [comanda, setComanda] = useState([]);
-
+  // Estado para a barra de pesquisa
+  const [termoBusca, setTermoBusca] = useState('');
+  
   const [numeromesa, setnumeromesa] = useState(1);
 
   // Estado para controlar atualização do Painel da Cozinha (gatilho)
@@ -42,6 +44,25 @@ function App() {
 
     fetchCardapio(); // Chama a função
   }, []); // O array vazio [] significa que este efeito roda APENAS UMA VEZ
+
+  // Função para filtrar o cardápio baseado no termo de busca
+  const cardapioFiltrado = useMemo(() => {
+    if (!termoBusca.trim()) {
+      return cardapio; // Retorna todos os itens se não houver busca
+    }
+    
+    const termoLower = termoBusca.toLowerCase();
+    return cardapio.filter(item => {
+      // Busca pelo nome OU descrição
+      return item.nome.toLowerCase().includes(termoLower) ||
+             item.descricao.toLowerCase().includes(termoLower);
+    });
+  }, [cardapio, termoBusca]);
+
+  // Função para limpar a busca
+  const handleLimparBusca = () => {
+    setTermoBusca('');
+  };
 
   // Função para adicionar um item ao carrinho (comanda)
   const handleAddItemComanda = (item) => {
@@ -123,21 +144,54 @@ function App() {
       <h1>🍽️ Cardápio do Restaurante 🍽️</h1>
       <p className="subtitle">Bem-vindo! Confira nossos deliciosos pratos:</p>
       
+      {/* Barra de Pesquisa */}
+      <div className="barra-pesquisa">
+        <div className="pesquisa-container">
+          <input
+            type="text"
+            placeholder="Buscar pratos pelo nome ou descrição..."
+            value={termoBusca}
+            onChange={(e) => setTermoBusca(e.target.value)}
+            className="input-pesquisa"
+          />
+          {termoBusca && (
+            <button onClick={handleLimparBusca} className="btn-limpar-pesquisa">
+              Limpar
+            </button>
+          )}
+        </div>
+        <div className="info-pesquisa">
+          <span>
+            Mostrando {cardapioFiltrado.length} de {cardapio.length} itens
+            {termoBusca && ` para "${termoBusca}"`}
+          </span>
+        </div>
+      </div>
+
       <div className="cardapio-lista">
-        {cardapio.map((item) => (
-          <div key={item.id} className="cardapio-item">
-            <h2>{item.nome}</h2>
-            <p className="descricao">{item.descricao}</p>
-            <p className="preco">R$ {item.preco.toFixed(2)}</p>
-            {/* Botão para adicionar item à comanda */}
-            <button 
-              onClick={() => handleAddItemComanda(item)} 
-              style={{ color: 'white' }}
-            >
-              ➕ Adicionar ao Pedido
+        {cardapioFiltrado.length === 0 ? (
+          <div className="sem-resultados">
+            <p>Nenhum prato encontrado para "{termoBusca}"</p>
+            <button onClick={handleLimparBusca} className="btn-voltar-todos">
+              Ver todos os pratos
             </button>
           </div>
-        ))}
+        ) : (
+          cardapioFiltrado.map((item) => (
+            <div key={item.id} className="cardapio-item">
+              <h2>{item.nome}</h2>
+              <p className="descricao">{item.descricao}</p>
+              <p className="preco">R$ {item.preco.toFixed(2)}</p>
+              {/* Botão para adicionar item à comanda */}
+              <button 
+                onClick={() => handleAddItemComanda(item)} 
+                style={{ color: 'white' }}
+              >
+                ➕ Adicionar ao Pedido
+              </button>
+            </div>
+          ))
+        )}
       </div>
 
       {/* PAINEL DA COZINHA - Mostra todos os pedidos feitos */}
@@ -154,7 +208,6 @@ function App() {
               <div key={index} className="comanda-item">
                 <span className="comanda-item-nome">{item.nome}</span>
                 <span className="comanda-item-preco">R$ {item.preco.toFixed(2)}</span>
-                {/* x BOTÃO PARA REMOVER ITEM */}
                 <button onClick={() => handleRemoveItemComanda(index)}> X </button>
               </div>
             ))

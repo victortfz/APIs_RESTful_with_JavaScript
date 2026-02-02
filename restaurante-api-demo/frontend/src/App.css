@@ -34,12 +34,133 @@ body {
   margin-bottom: 2em;
 }
 
+/* Barra de Pesquisa */
+.barra-pesquisa {
+  margin: 20px auto 30px;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.pesquisa-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.input-pesquisa {
+  flex: 1;
+  padding: 14px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.input-pesquisa::placeholder {
+  color: #999;
+}
+
+.input-pesquisa:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+}
+
+.input-pesquisa:hover {
+  border-color: #667eea;
+}
+
+.btn-limpar-pesquisa {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.2);
+  white-space: nowrap;
+}
+
+.btn-limpar-pesquisa:hover {
+  background: linear-gradient(135deg, #ee5a5a 0%, #e74c3c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+}
+
+.btn-limpar-pesquisa:active {
+  transform: translateY(0);
+}
+
+.info-pesquisa {
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  display: inline-block;
+  font-style: italic;
+}
+
+/* Sem resultados */
+.sem-resultados {
+  text-align: center;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  margin: 30px 0;
+  border: 2px dashed #dee2e6;
+}
+
+.sem-resultados p {
+  color: #666;
+  font-size: 1.2em;
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+.btn-voltar-todos {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-voltar-todos:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6b4192 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-voltar-todos:active {
+  transform: translateY(0);
+}
+
 /* Grid de Cardápio */
 .cardapio-lista {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5em;
   margin-top: 2em;
+  grid-auto-rows: 1 fr;
+  align-items: stretch;
 }
 
 /* Card de Item do Cardápio */
@@ -51,6 +172,8 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 }
 
 .cardapio-item:hover {
@@ -72,6 +195,7 @@ body {
   margin: 0.8em 0;
   line-height: 1.5;
   min-height: 3em;
+  flex-grow: 1;
 }
 
 .cardapio-item .preco {
@@ -99,11 +223,12 @@ body {
 }
 
 .error {
-  background-color: #fee;
+  background: linear-gradient(135deg, #fee 0%, #fdd 100%);
   border: 2px solid #fcc;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 2em;
   color: #c33;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
 
 .error p {
@@ -116,19 +241,21 @@ body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 0.7em 1.2em;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
   cursor: pointer;
   margin-top: 1em;
   font-size: 0.95em;
   font-weight: 600;
   transition: all 0.3s ease;
   width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
 .cardapio-item button:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
 }
 
 .cardapio-item button:active {
@@ -160,6 +287,21 @@ body {
   padding: 1em;
 }
 
+/* Custom scrollbar para comanda */
+.comanda-lista::-webkit-scrollbar {
+  width: 8px;
+}
+
+.comanda-lista::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.comanda-lista::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+}
+
 .comanda-vazia {
   color: #999;
   font-style: italic;
@@ -171,27 +313,59 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8em;
+  padding: 12px 16px;
   border-bottom: 1px solid #e0e0e0;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  background-color: white;
+  border-radius: 6px;
+  margin-bottom: 6px;
 }
 
 .comanda-item:hover {
   background-color: #f0f0f0;
+  transform: translateX(2px);
 }
 
 .comanda-item:last-child {
   border-bottom: none;
+  margin-bottom: 0;
 }
 
 .comanda-item-nome {
   font-weight: 500;
   color: #333;
+  flex-grow: 1;
+  text-align: left;
 }
 
 .comanda-item-preco {
   font-weight: bold;
   color: #667eea;
+  margin: 0 15px;
+}
+
+.comanda-item button {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comanda-item button:hover {
+  background: linear-gradient(135deg, #ee5a5a 0%, #e74c3c 100%);
+  transform: scale(1.1);
+}
+
+.comanda-item button:active {
+  transform: scale(0.95);
 }
 
 .comanda-secao hr {
@@ -211,20 +385,21 @@ body {
   background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
   color: white;
   border: none;
-  padding: 1em 2em;
+  padding: 16px 32px;
   font-size: 1.2em;
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   width: 100%;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .btn-fazer-pedido:hover:not(:disabled) {
   background: linear-gradient(135deg, #218838 0%, #1ea87a 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
 .btn-fazer-pedido:active:not(:disabled) {
@@ -264,6 +439,19 @@ body {
 
   .comanda-total {
     font-size: 1.3em;
+  }
+
+  .pesquisa-container {
+    flex-direction: column;
+  }
+
+  .btn-limpar-pesquisa {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .input-pesquisa {
+    width: 100%;
   }
 }
 
