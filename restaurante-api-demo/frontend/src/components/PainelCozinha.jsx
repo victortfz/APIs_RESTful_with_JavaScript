@@ -61,8 +61,8 @@ export function PainelCozinha({ refreshTrigger }) {
     const confirmacao = window.confirm('Tem certeza que deseja cancelar este pedido?');
     
     if (!confirmacao) {
-    return; // Se o usuário cancelar, não faz nada
-     }
+      return; // Se o usuário cancelar, não faz nada
+    }
 
     try {
       // 1. Chama a API para deletar no back-end
@@ -78,6 +78,33 @@ export function PainelCozinha({ refreshTrigger }) {
     } catch (err) {
       console.error('Erro ao cancelar pedido:', err);
       alert('Falha ao cancelar o pedido.');
+    }
+  };
+
+  // Nova função para remover pedido concluído do painel
+  const handleRemoverPedidoConcluido = async (id) => {
+    // Pede confirmação ao usuário antes de remover
+    const confirmacao = window.confirm('Deseja remover este pedido concluído do painel?');
+    
+    if (!confirmacao) {
+      return; // Se o usuário cancelar, não faz nada
+    }
+
+    try {
+      // 1. Opcional: Chama a API para deletar no back-end
+      // Se quiser manter no banco de dados, comente a linha abaixo
+      await deleteComanda(id);
+      
+      // 2. Remove o pedido do estado local (UI)
+      setComandas((comandasAnteriores) =>
+        comandasAnteriores.filter((c) => c.id !== id)
+      );
+      
+      console.log(`Pedido #${id} removido do painel!`);
+    
+    } catch (err) {
+      console.error('Erro ao remover pedido:', err);
+      alert('Falha ao remover o pedido.');
     }
   };
 
@@ -117,6 +144,18 @@ export function PainelCozinha({ refreshTrigger }) {
         <div className="cozinha-lista">
           {comandas.map((comanda) => (
             <div key={comanda.id} className="cozinha-pedido">
+              
+              {/* Botão X no canto superior direito - apenas para pedidos concluídos */}
+              {comanda.status === 'Concluído' && (
+                <button 
+                  className="btn-remover-pedido"
+                  onClick={() => handleRemoverPedidoConcluido(comanda.id)}
+                  title="Remover pedido concluído"
+                >
+                  ✕
+                </button>
+              )}
+              
               <h3>Pedido #{comanda.id}</h3>
               <p className="cozinha-mesa">🪑 Mesa: {comanda.mesa}</p>
               <p className="cozinha-status">
@@ -132,7 +171,7 @@ export function PainelCozinha({ refreshTrigger }) {
                 <small>🕐 Recebido: {new Date(comanda.dataPedido).toLocaleString('pt-BR')}</small>
               </p>
               
-              {/* --- NOVOS BOTÕES DE AÇÃO --- */}
+              {/* --- BOTÕES DE AÇÃO --- */}
               <div className="botoes-acao">
                 {/* Botão "Em Preparo" (só aparece se status for "pendente") */}
                 {comanda.status === 'pendente' && (

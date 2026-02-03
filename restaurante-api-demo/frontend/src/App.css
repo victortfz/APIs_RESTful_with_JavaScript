@@ -526,6 +526,7 @@ body {
   background: rgba(255, 255, 255, 0.5);
 }
 
+/* --- ESTILOS DO PEDIDO (ATUALIZADOS PARA INCLUIR O X) --- */
 .cozinha-pedido {
   background: linear-gradient(135deg, #3a4d63 0%, #455a75 100%);
   border: 2px solid #4a5f7f;
@@ -533,6 +534,7 @@ body {
   padding: 1.5em;
   transition: all 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative; /* IMPORTANTE: para posicionar o X absolutamente */
 }
 
 .cozinha-pedido:hover {
@@ -541,6 +543,40 @@ body {
   border-color: #5a7fa8;
 }
 
+/* --- ESTILO DO BOTÃO X (APENAS UM X BRANCO) --- */
+.btn-remover-pedido {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  color: white;
+  border: none;
+  font-size: 24px;
+  font-weight: 300;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.btn-remover-pedido:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.btn-remover-pedido:active {
+  transform: scale(0.9);
+}
+
+/* Ajusta o conteúdo para não ficar atrás do X */
 .cozinha-pedido h3 {
   margin-top: 0;
   margin-bottom: 0.8em;
@@ -548,6 +584,7 @@ body {
   color: #3498db;
   border-bottom: 1px solid #4a5f7f;
   padding-bottom: 0.5em;
+  padding-right: 20px; /* Dá espaço para o X */
 }
 
 .cozinha-mesa {
@@ -721,5 +758,11 @@ body {
 
   .cozinha-pedido {
     padding: 1.2em;
+  }
+  
+  .btn-remover-pedido {
+    top: 6px;
+    right: 6px;
+    font-size: 20px;
   }
 }

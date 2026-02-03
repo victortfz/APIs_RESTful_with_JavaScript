@@ -15,7 +15,7 @@ const cardapio = [
   { id: 10, nome: 'Coca-Cola', preco: 30.00, descricao: "Lata 350ml" },
   { id: 11, nome: 'Coxinha', preco: 15.00, descricao: 'Coxinha de frango' },
   { id: 12, nome: 'Suco de Acerola', preco: 8.00, descricao: 'Suco natural 500ml' },
-  { id: 13, nome: 'Cahorro-quente', preco: 35.00, descricao: 'Pão, salsicha, purê de batata, batata palha, molho de carne' },
+  { id: 13, nome: 'Cachorro-quente', preco: 35.00, descricao: 'Pão, salsicha, purê de batata, batata palha, molho de carne' },
   { id: 14, nome: 'Pizza de calabresa', preco: 40.00, descricao: 'Pizza com calabresa' },
   { id: 15, nome: 'Fanta', preco: 7.00, descricao: 'Lata 350ml' },
   { id: 16, nome: 'Brisadeiro', preco: 9.00, descricao: "Feito com chocolate de primeira" },
