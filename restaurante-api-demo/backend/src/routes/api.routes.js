@@ -1,4 +1,6 @@
 // Arquivo de Rotas da API
+// Este é o "livro de pedidos" que define todos os endpoints disponíveis
+
 const express = require('express');
 const router = express.Router();
 
@@ -7,24 +9,24 @@ const cardapioController = require('../controllers/cardapio.controller');
 const comandasController = require('../controllers/comandas.controller');
 
 // ========== ROTAS DO CARDÁPIO ==========
-// Retorna todo o cardápio
+// GET /api/cardapio - Retorna todo o cardápio
 router.get('/cardapio', cardapioController.listarCardapio);
 
-// Retorna um item específico do cardápio por ID
-router.get('/cardapio/:id', cardapioController.getCardapioItem);
+// GET /api/cardapio/:id - Retorna um item específico do cardápio
+//router.get('/cardapio/:id', cardapioController.getCardapioItem);
 
 // ========== ROTAS DAS COMANDAS ==========
-// Retorna todas as comandas (Onde estava dando o erro 404)
-router.get('/comandas', comandasController.getComandas);
+// GET /api/comandas - Retorna todas as comandas
+//router.get('/comandas', comandasController.getComandas);
 
-// Cria uma nova comanda
-router.post('/comandas', comandasController.createComanda);
+// POST /api/comandas - Cria uma nova comanda
+//router.post('/comandas', comandasController.createComanda);
 
-// Atualiza o status de uma comanda (ex: de 'pendente' para 'entregue')
-router.patch('/comandas/:id', comandasController.updateComandaStatus);
+// PATCH /api/comandas/:id - Atualiza o status de uma comanda
+//router.patch('/comandas/:id', comandasController.updateComandaStatus);
 
-// Deleta uma comanda do sistema
-router.delete('/comandas/:id', comandasController.deleteComanda);
+// DELETE /api/comandas/:id - Deleta uma comanda
+//router.delete('/comandas/:id', comandasController.deleteComanda);
 
 // Exporta o router para ser usado no server.js
 module.exports = router;
