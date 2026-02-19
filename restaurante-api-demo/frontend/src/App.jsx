@@ -216,7 +216,7 @@ function App() {
                   onClick={() => handleAddItemComanda(item)}
                   className="btn-adicionar-pedido"
                 >
-                  ➕ Adicionar ao Pedido
+                  ➕ novo pedido
                 </button>
               </div>
             </div>
